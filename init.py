@@ -3,18 +3,18 @@ import tkinter as tk
 from tkinter import ttk
 class Calculator_OOP(tk.Tk):
     def update_widget(self, item):
-        self.expression = self.shown_equation.get() # Updates the expression
-        self.expression = self.expression + str(item)
-        self.shown_equation.set(self.expression)
+        self.shown_equation.set(self.shown_equation.get() + str(item))
+# Gets the current equation then adds the item
 
     def evaluate(self):
-        self.expression = self.shown_equation.get()
-        self.result = str(eval(self.expression))
-        self.shown_equation.set(self.result)
-        self.expression = self.result
+        try:
+            self.result = str(eval(self.shown_equation.get()))
+            self.shown_equation.set(self.result)
+        except:
+            print('Error!')
 
     def clear(self):
-        self.expression = ""
+        self.shown_equation.set("")
 
     def __init__(self, title):
         super().__init__()
@@ -24,7 +24,6 @@ class Calculator_OOP(tk.Tk):
         self.mainframe = ttk.Frame(self, padding='3 3 12 12')
         self.mainframe.pack()
         # self.mainframe.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
-        self.expression = ""
         self.shown_equation = tk.StringVar()
         self.equation_field = tk.Entry(self, textvariable=self.shown_equation)
         self.equation_field.pack()
@@ -35,6 +34,7 @@ class Calculator_OOP(tk.Tk):
         self.button_multiply = tk.Button(self, text=' * ', command=lambda: self.update_widget("*")).pack()
         self.button_divide = tk.Button(self, text=' / ', command=lambda: self.update_widget("/")).pack()
         self.button_equals = tk.Button(self, text=' = ', command=self.evaluate).pack()
+        self.button_clears = tk.Button(self, text= ' C ', command=self.clear).pack()
 if __name__ == "__main__":
     app = Calculator_OOP(f'Calculator')
     app.mainloop()
