@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import ttk
 class Calculator_OOP(tk.Tk):
     def update_widget(self, item):
+        self.expression = self.shown_equation.get() # Updates the expression
         self.expression = self.expression + str(item)
         self.shown_equation.set(self.expression)
 
@@ -10,7 +11,7 @@ class Calculator_OOP(tk.Tk):
         self.expression = self.shown_equation.get()
         self.result = str(eval(self.expression))
         self.shown_equation.set(self.result)
-        self.expression = ""
+        self.expression = self.result
 
     def clear(self):
         self.expression = ""
