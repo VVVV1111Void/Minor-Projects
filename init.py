@@ -1,12 +1,13 @@
-import numpy as np
+
 import tkinter as tk
 from tkinter import ttk
 class Calculator_OOP(tk.Tk):
-    def add_op(self, item):
+    def update_widget(self, item):
         self.expression = self.expression + str(item)
         self.shown_equation.set(self.expression)
 
     def evaluate(self):
+        self.expression = self.shown_equation.get()
         self.result = str(eval(self.expression))
         self.shown_equation.set(self.result)
         self.expression = ""
@@ -28,10 +29,10 @@ class Calculator_OOP(tk.Tk):
         self.equation_field.pack()
         # self.columnconfigure(0, weight=1)
         # self.rowconfigure(0, weight=1)
-        self.button_add = tk.Button(self, text=' + ', command=lambda: self.add_op("+")).pack()
-        self.button_minus = tk.Button(self, text=' - ', command=lambda: self.add_op("-")).pack()
-        self.button_multiply = tk.Button(self, text=' * ', command=lambda: self.add_op("*")).pack()
-        self.button_divide = tk.Button(self, text=' / ', command=lambda: self.add_op("/")).pack()
+        self.button_add = tk.Button(self, text=' + ', command=lambda: self.update_widget("+")).pack()
+        self.button_minus = tk.Button(self, text=' - ', command=lambda: self.update_widget("-")).pack()
+        self.button_multiply = tk.Button(self, text=' * ', command=lambda: self.update_widget("*")).pack()
+        self.button_divide = tk.Button(self, text=' / ', command=lambda: self.update_widget("/")).pack()
         self.button_equals = tk.Button(self, text=' = ', command=self.evaluate).pack()
 if __name__ == "__main__":
     app = Calculator_OOP(f'Calculator')
