@@ -29,12 +29,26 @@ class Calculator_OOP(tk.Tk):
         self.equation_field.pack()
         # self.columnconfigure(0, weight=1)
         # self.rowconfigure(0, weight=1)
+
+        # These Buttons do stuff
         self.button_add = tk.Button(self, text=' + ', command=lambda: self.update_widget("+")).pack()
         self.button_minus = tk.Button(self, text=' - ', command=lambda: self.update_widget("-")).pack()
         self.button_multiply = tk.Button(self, text=' * ', command=lambda: self.update_widget("*")).pack()
         self.button_divide = tk.Button(self, text=' / ', command=lambda: self.update_widget("/")).pack()
         self.button_equals = tk.Button(self, text=' = ', command=self.evaluate).pack()
         self.button_clears = tk.Button(self, text= ' C ', command=self.clear).pack()
+
+        # Extra buttons
+        self.button_1 = tk.Button(self, text='1', command=lambda: self.update_widget("1")).pack()
+        self.button_2 = tk.Button(self, text='2', command=lambda: self.update_widget("2")).pack()
+        self.button_3 = tk.Button(self, text='3', command=lambda: self.update_widget("3")).pack()
+        self.button_4 = tk.Button(self, text='4', command=lambda: self.update_widget("4")).pack()
+        self.button_5 = tk.Button(self, text='5', command=lambda: self.update_widget("5")).pack()
+        self.button_6 = tk.Button(self, text='6', command=lambda: self.update_widget("6")).pack()
+        self.button_7 = tk.Button(self, text='7', command=lambda: self.update_widget("7")).pack()
+        self.button_8 = tk.Button(self, text='8', command=lambda: self.update_widget("8")).pack()
+        self.button_9 = tk.Button(self, text='9', command=lambda: self.update_widget("9")).pack()
+        self.button_0 = tk.Button(self, text='8', command=lambda: self.update_widget("8")).pack()
 if __name__ == "__main__":
     app = Calculator_OOP(f'Calculator')
     app.mainloop()
