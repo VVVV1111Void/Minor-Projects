@@ -2,16 +2,26 @@
 import tkinter as tk
 from tkinter import ttk
 class Calculator_OOP(tk.Tk):
+    def update_logs(self, text):
+        pass
     def update_widget(self, item):
         self.shown_equation.set(self.shown_equation.get() + str(item))
-# Gets the current equation then adds the item
 
+    # Gets the current equation then adds the item
     def evaluate(self):
         try:
             self.result = str(eval(self.shown_equation.get()))
             self.shown_equation.set(self.result)
         except:
-            print('Error!')
+            self.string = self.shown_equation.get()
+            if self.string.__contains__("="):
+                self.string = self.string.strip('=')
+                self.shown_equation.set(self.string)
+                self.evaluate()
+            else:
+                print('Error!')
+
+
 
     def clear(self):
         self.shown_equation.set("")
@@ -28,21 +38,25 @@ class Calculator_OOP(tk.Tk):
         self.shown_equation = tk.StringVar()
         self.equation_field = tk.Entry(self.mainframe, textvariable=self.shown_equation)
         self.equation_field.grid(columnspan=20, row=0)
-
         # self.columnconfigure(0, weight=1)
         # self.rowconfigure(0, weight=1)
 
         # These Buttons do stuff
         self.add = tk.Button(self.mainframe, text=' + ', command=lambda: self.update_widget("+"))
         self.add.grid(column=3,row=2)
+
         self.minus = tk.Button(self.mainframe, text=' - ', command=lambda: self.update_widget("-"))
         self.minus.grid(column=4,row=2)
+
         self.multiply = tk.Button(self.mainframe, text=' * ', command=lambda: self.update_widget("*"))
         self.multiply.grid(column=5,row=2)
+
         self.divide = tk.Button(self.mainframe, text=' / ', command=lambda: self.update_widget("/"))
         self.divide.grid(column=3,row=3)
+
         self.equals = tk.Button(self.mainframe, text=' = ', command=self.evaluate)
         self.equals.grid(column=4,row=3)
+
         self.clears = tk.Button(self.mainframe, text= ' C ', command=self.clear)
         self.clears.grid(column=5,row=3)
         # Extra buttons
@@ -76,6 +90,12 @@ class Calculator_OOP(tk.Tk):
 
         self.button_0 = tk.Button(self.mainframe, text='0', command=lambda: self.update_widget("0"))
         self.button_0.grid(column=3,row=4)
+
+        self.messages = tk.StringVar()
+        #self.message_frame = tk.Frame(self.mainframe)
+        #self.message_frame.grid(column=0, row=5)
+        self.log_widget = tk.Entry(self.mainframe,textvariable=self.messages, state='readonly')
+        self.log_widget.grid(columnspan=20, row=5)
 if __name__ == "__main__":
     app = Calculator_OOP(f'Calculator')
     app.mainloop()
