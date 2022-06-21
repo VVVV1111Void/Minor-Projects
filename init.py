@@ -19,36 +19,63 @@ class Calculator_OOP(tk.Tk):
     def __init__(self, title):
         super().__init__()
         self.title(title)
-        self.geometry('250x550')
+        #self.geometry('250x550')
 
         self.mainframe = ttk.Frame(self, padding='3 3 12 12')
-        self.mainframe.pack()
-        # self.mainframe.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
+        self.mainframe.grid(column=1, row=1)
+
+        # self.mainframe.grid(column=00, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
         self.shown_equation = tk.StringVar()
-        self.equation_field = tk.Entry(self, textvariable=self.shown_equation)
-        self.equation_field.pack()
+        self.equation_field = tk.Entry(self.mainframe, textvariable=self.shown_equation)
+        self.equation_field.grid(columnspan=20, row=0)
+
         # self.columnconfigure(0, weight=1)
         # self.rowconfigure(0, weight=1)
 
         # These Buttons do stuff
-        self.button_add = tk.Button(self, text=' + ', command=lambda: self.update_widget("+")).pack()
-        self.button_minus = tk.Button(self, text=' - ', command=lambda: self.update_widget("-")).pack()
-        self.button_multiply = tk.Button(self, text=' * ', command=lambda: self.update_widget("*")).pack()
-        self.button_divide = tk.Button(self, text=' / ', command=lambda: self.update_widget("/")).pack()
-        self.button_equals = tk.Button(self, text=' = ', command=self.evaluate).pack()
-        self.button_clears = tk.Button(self, text= ' C ', command=self.clear).pack()
-
+        self.add = tk.Button(self.mainframe, text=' + ', command=lambda: self.update_widget("+"))
+        self.add.grid(column=3,row=2)
+        self.minus = tk.Button(self.mainframe, text=' - ', command=lambda: self.update_widget("-"))
+        self.minus.grid(column=4,row=2)
+        self.multiply = tk.Button(self.mainframe, text=' * ', command=lambda: self.update_widget("*"))
+        self.multiply.grid(column=5,row=2)
+        self.divide = tk.Button(self.mainframe, text=' / ', command=lambda: self.update_widget("/"))
+        self.divide.grid(column=3,row=3)
+        self.equals = tk.Button(self.mainframe, text=' = ', command=self.evaluate)
+        self.equals.grid(column=4,row=3)
+        self.clears = tk.Button(self.mainframe, text= ' C ', command=self.clear)
+        self.clears.grid(column=5,row=3)
         # Extra buttons
-        self.button_1 = tk.Button(self, text='1', command=lambda: self.update_widget("1")).pack()
-        self.button_2 = tk.Button(self, text='2', command=lambda: self.update_widget("2")).pack()
-        self.button_3 = tk.Button(self, text='3', command=lambda: self.update_widget("3")).pack()
-        self.button_4 = tk.Button(self, text='4', command=lambda: self.update_widget("4")).pack()
-        self.button_5 = tk.Button(self, text='5', command=lambda: self.update_widget("5")).pack()
-        self.button_6 = tk.Button(self, text='6', command=lambda: self.update_widget("6")).pack()
-        self.button_7 = tk.Button(self, text='7', command=lambda: self.update_widget("7")).pack()
-        self.button_8 = tk.Button(self, text='8', command=lambda: self.update_widget("8")).pack()
-        self.button_9 = tk.Button(self, text='9', command=lambda: self.update_widget("9")).pack()
-        self.button_0 = tk.Button(self, text='8', command=lambda: self.update_widget("8")).pack()
+
+        self.button_1 = tk.Button(self.mainframe, text='1', command=lambda: self.update_widget("1"))
+        self.button_1.grid(column=0,row=2)
+
+        self.button_2 = tk.Button(self.mainframe, text='2', command=lambda: self.update_widget("2"))
+        self.button_2.grid(column=1,row=2)
+
+        self.button_3 = tk.Button(self.mainframe, text='3', command=lambda: self.update_widget("3"))
+        self.button_3.grid(column=2,row=2)
+
+        self.button_4 = tk.Button(self.mainframe, text='4', command=lambda: self.update_widget("4"))
+        self.button_4.grid(column=0,row=3)
+
+        self.button_5 = tk.Button(self.mainframe, text='5', command=lambda: self.update_widget("5"))
+        self.button_5.grid(column=1,row=3)
+
+        self.button_6 = tk.Button(self.mainframe, text='6', command=lambda: self.update_widget("6"))
+        self.button_6.grid(column=2,row=3)
+
+        self.button_7 = tk.Button(self.mainframe, text='7', command=lambda: self.update_widget("7"))
+        self.button_7.grid(column=0,row=4)
+
+        self.button_8 = tk.Button(self.mainframe, text='8', command=lambda: self.update_widget("8"))
+        self.button_8.grid(column=1,row=4)
+
+        self.button_9 = tk.Button(self.mainframe, text='9', command=lambda: self.update_widget("9"))
+        self.button_9.grid(column=2,row=4)
+
+        self.button_0 = tk.Button(self.mainframe, text='0', command=lambda: self.update_widget("0"))
+        self.button_0.grid(column=3,row=4)
 if __name__ == "__main__":
     app = Calculator_OOP(f'Calculator')
     app.mainloop()
