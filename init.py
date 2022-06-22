@@ -1,27 +1,27 @@
-
+import tkinter.scrolledtext as scrt
 import tkinter as tk
-from tkinter import ttk
 class Calculator_OOP(tk.Tk):
     def update_logs(self, text):
-        pass
+        self.log.insert(tk.INSERT, chars=f'\n{text}')
+
     def update_widget(self, item):
         self.shown_equation.set(self.shown_equation.get() + str(item))
 
     # Gets the current equation then adds the item
     def evaluate(self):
         try:
-            self.result = str(eval(self.shown_equation.get()))
-            self.shown_equation.set(self.result)
-        except:
             self.string = self.shown_equation.get()
+            self.result = str(eval(self.string))
+            self.shown_equation.set(self.result)
+            self.update_logs(text=f'{self.string}={self.result}')
+        except:
             if self.string.__contains__("="):
                 self.string = self.string.strip('=')
                 self.shown_equation.set(self.string)
                 self.evaluate()
             else:
                 print('Error!')
-
-
+                self.clear()
 
     def clear(self):
         self.shown_equation.set("")
@@ -31,17 +31,14 @@ class Calculator_OOP(tk.Tk):
         self.title(title)
         #self.geometry('250x550')
 
-        self.mainframe = ttk.Frame(self, padding='3 3 12 12')
+        self.mainframe = tk.Frame(self)
         self.mainframe.grid(column=1, row=1)
 
         # self.mainframe.grid(column=00, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
         self.shown_equation = tk.StringVar()
         self.equation_field = tk.Entry(self.mainframe, textvariable=self.shown_equation)
-        self.equation_field.grid(columnspan=20, row=0)
-        # self.columnconfigure(0, weight=1)
-        # self.rowconfigure(0, weight=1)
+        self.equation_field.grid(column=0, columnspan=6, row=0)
 
-        # These Buttons do stuff
         self.add = tk.Button(self.mainframe, text=' + ', command=lambda: self.update_widget("+"))
         self.add.grid(column=3,row=2)
 
@@ -91,11 +88,15 @@ class Calculator_OOP(tk.Tk):
         self.button_0 = tk.Button(self.mainframe, text='0', command=lambda: self.update_widget("0"))
         self.button_0.grid(column=3,row=4)
 
-        self.messages = tk.StringVar()
-        #self.message_frame = tk.Frame(self.mainframe)
-        #self.message_frame.grid(column=0, row=5)
-        self.log_widget = tk.Entry(self.mainframe,textvariable=self.messages, state='readonly')
-        self.log_widget.grid(columnspan=20, row=5)
+        self.l_parenthesis = tk.Button(self.mainframe, text='(', command=lambda: self.update_widget("("))
+        self.l_parenthesis.grid(column=4,row=4)
+
+        self.r_parenthesis = tk.Button(self.mainframe, text=')', command=lambda: self.update_widget(")"))
+        self.r_parenthesis.grid(column=5,row=4)
+
+        self.log = scrt.ScrolledText(width=15, height=10)
+        self.log.grid(column=0, row=5, columnspan=5)
+        self.log.insert(tk.INSERT, chars='1+1=2')
 if __name__ == "__main__":
-    app = Calculator_OOP(f'Calculator')
+    app = Calculator_OOP(f"Void's Calculator")
     app.mainloop()
