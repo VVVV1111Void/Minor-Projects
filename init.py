@@ -1,5 +1,6 @@
 import tkinter.scrolledtext as scrt
 import tkinter as tk
+from math import *
 class Calculator_OOP(tk.Tk):
     def update_logs(self, text):
         self.log.insert(tk.INSERT, chars=f'\n{text}')
@@ -11,7 +12,7 @@ class Calculator_OOP(tk.Tk):
     def evaluate(self):
         try:
             self.string = self.shown_equation.get()
-            self.result = str(eval(self.string))
+            self.result = str(eval(self.string, {'__builtins__':None}, self.safe_dic))
             self.shown_equation.set(self.result)
             self.update_logs(text=f'{self.string}={self.result}')
         except:
@@ -26,11 +27,11 @@ class Calculator_OOP(tk.Tk):
     def clear(self):
         self.shown_equation.set("")
 
-    def __init__(self, title):
+    def __init__(self, title, safe_dic):
         super().__init__()
         self.title(title)
         #self.geometry('250x550')
-
+        self.safe_dic = safe_dic
         self.mainframe = tk.Frame(self)
         self.mainframe.grid(column=1, row=1)
 
@@ -97,6 +98,9 @@ class Calculator_OOP(tk.Tk):
         self.log = scrt.ScrolledText(width=15, height=10)
         self.log.grid(column=0, row=5, columnspan=5)
         self.log.insert(tk.INSERT, chars='1+1=2')
+
+
 if __name__ == "__main__":
-    app = Calculator_OOP(f"Void's Calculator")
+    safe_dict = {'sqrt' : sqrt, 'power' : pow}
+    app = Calculator_OOP(f"Void's Calculator", safe_dict)
     app.mainloop()
