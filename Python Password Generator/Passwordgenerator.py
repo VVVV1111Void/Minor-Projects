@@ -2,73 +2,39 @@ import random
 import string
 
 def Ask():
-    answers = {
-        'len' : 0,
-        'mlen' : 0,
-        'Mlen' : 0,
-        'ammount' : 1
-    }
-
-    answers['len'] = (input('Input a integer length (0 for random)\n'))
-    if (str(answers['len'])).lower() == 'exit':
-        return 0
-
-    answers['ammount'] = (input('How many passwords?\n'))
-    if (str(answers['ammount'])).lower() == 'exit':
-        return 0
-
-    if answers['len'] != 0:
+    while True:
+        answers = {
+            'Length': int(input('Input a integer length (0 for random)\n') or '0'),
+            'Amount': int(input('How many passwords?\n') or '1'),
+            'Mlen': int(input('Input a integer max length (0 for none)\n') or '0'),
+            'mlen': int(input('Input a integer min length (0 for none)\n') or '0')
+        }
+        
+        if 'exit' in [str(val).lower() for val in answers.values()]:
+            return 0
+        
         return answers
 
-    answers['Mlen'] = (input('Input a integer max length (0 for none)\n'))
-    if (str(answers['Mlen'])).lower() == 'exit':
-        return 0
 
-    answers['mlen'] = (input('Input a integer min length (0 for none)\n'))
-    if (str(answers['mlen'])).lower() == 'exit':
-        return 0
-
-    
-    for inp in answers:
-        answers[inp] = int(answers[inp])
-    return answers
-    print('Error!')
-    Ask()
-
-
-def Password(n) -> str:
-    chars = list(string.ascii_letters + string.digits + string.punctuation)
+def Password(n):
+    chars = string.ascii_letters + string.digits + string.punctuation
     passwords = []
-    random.shuffle(chars)
 
-    for p in range(0, int(n['ammount'])):
+    for _ in range(n['Amount']):
         password = []
-        if n['len'] != 0:
-            while len(password) < int(n['len']):
-                password.append(random.choice(chars))
-                random.shuffle(password) 
-            while len(password) > int(n['len']):
-                password.pop(-1)
-                random.shuffle(password) 
 
-        if n['len'] == 0:
+        if n['Length'] > 0 :
+            password = random.choices(chars, k=n['len'])
+        elif n['mlen'] > 0:
+            password = random.choices(chars, k=random.randint(n['mlen'], n['Mlen'] + 1))
+        else:
             number = random.randint(0, 15)
-            for i in range(0, number + 1):
-                password.append(random.choice(chars))
-                random.shuffle(password)
+            password = random.choices(chars, k=number)
 
-        if n['mlen'] != 0:
-            while len(password) < int(n['mlen']):
-                password.append(random.choice(chars))
-                random.shuffle(password)
+        passwords.append(''.join(password)) # convert to string
 
-        if n['Mlen'] != 0:
-            while len(password) > int(n['Mlen']):
-                password.pop(-1)
-                random.shuffle(password)
-                
-        passwords.append(str("".join(password)))
     return passwords
+
 if __name__ == "__main__":
     print('Welcome to my python password generator')
     print('Put "exit" anywhere to exit')
