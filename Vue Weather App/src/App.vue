@@ -14,7 +14,6 @@ const geolocation_options = {
 
 
 const updateWeather = async () => {
-  console.log("Bazinga")
   navigator.geolocation.getCurrentPosition(async (e) => {
     const latitude = e.coords.latitude;
     const longitude = e.coords.longitude;
